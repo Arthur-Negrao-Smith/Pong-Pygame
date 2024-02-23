@@ -19,11 +19,14 @@ player_size_y = 100
 player_1 = Rect_player(posx=0, posy=screen_size_y//2, widith=player_size_x, height=player_size_y, color='green')
 player_2 = Rect_player(posx=screen_size_x - player_size_x, posy=screen_size_y//2, widith=player_size_x, height=player_size_y, color='red')
 
-speed = 5
+# Controla a velocidade do jogo
+player_speed = 5
+ball_speed = 0
+
+clock = pg.time.Clock()
 
 # Identificador de eventos
 game_event = Game_Event()
-clock = pg.time.Clock()
 
 running = True
 while running:
@@ -36,9 +39,9 @@ while running:
 
     player_1.draw_player(screen=game_screen.game_window)
     if game_event.identify_key_up() and player_1.posy >= 0:
-        player_1.move_up(speed=speed)
+        player_1.move_up(speed=player_speed)
     if game_event.identify_key_down() and player_1.posy <= screen_size_y - player_size_y:
-        player_1.move_down(speed=speed)
+        player_1.move_down(speed=player_speed)
 
     player_2.draw_player(screen=game_screen.game_window)
 
