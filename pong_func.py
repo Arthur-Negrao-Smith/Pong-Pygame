@@ -67,6 +67,10 @@ class Ball:
         self.color = color
         self.speed = speed
 
+    def change_ball_position(self, posx, posy) -> None:
+        self.posx = posx
+        self.posy = posy
+
     def move_ball_up_right(self) -> None:
         self.posx += self.speed
         self.posy -= self.speed
@@ -83,8 +87,36 @@ class Ball:
         self.posx -= self.speed
         self.posy += self.speed
 
+    def move_ball_to_direction(self, direction):
+        self.direction = direction
+        up_left = 1
+        down_left = 2
+        up_right =  3
+        down_right = 4
+        if self.direction == up_left:
+            self.move_ball_up_left()
+        elif self.direction == down_left:
+            self.move_ball_down_left()
+        elif self.direction == up_right:
+            self.move_ball_up_right()
+        elif self.direction == down_right:
+            self.move_ball_down_right()
+
+    def crash_test_player(self, player) -> bool:
+        if self.posx - self.ray == player.return_x_pos() + player.xsize and player.return_y_pos() <= self.posy - self.ray and self.posy - self.ray <= player.return_y_pos() + player.ysize:
+            print('Colidiu')
+            return True
+        else:
+            return False
+
     def draw_ball(self, screen) -> None:
         pg.draw.circle(color=self.color, surface=screen, center=[self.posx, self.posy], radius=self.ray)
+
+    def return_posx(self) -> int:
+        return self.posx
+    
+    def return_posy(self) -> int:
+        return self.posy
         
     def set_start(self, screen_size_x, screen_size_y) -> bool:
         if self.posx == screen_size_x//2 and screen_size_y//2:
@@ -92,13 +124,13 @@ class Ball:
         else:
             return False
         
-    def set_finish_height(self, screen_size_y) -> str:
+    def set_collision_height(self, screen_size_y) -> str:
         if self.posy == 0:
             return 'down'
         elif self.posy == screen_size_y - self.ray:
             return 'up'
 
-    def set_finish_width(self, screen_size_x) -> str:
+    def set_collision_width(self, screen_size_x) -> str:
         if self.posx == 0:
             return 'left'
         elif self.posx == screen_size_x - self.ray:
