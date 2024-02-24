@@ -86,20 +86,17 @@ class Ball:
     def draw_ball(self, screen):
         pg.draw.circle(color=self.color, surface=screen, center=[self.posx, self.posy], radius=self.ray)
         
-    def select_direction(self, screen):
-        from random import randint
-        if self.posx == 0 or self.posx == screen - self.ray*2:
-            selector = randint(1, 4)
-            if selector == 1:
-                self.move_ball_down_left()
-            if selector == 2:
-                self.move_ball_down_right()
-            if selector == 3:
-                self.move_ball_up_left()
-            if selector == 4:
-                self.move_ball_up_right()
+    def set_start(self, screen_size_x):
+        if self.posx == screen_size_x//2:
+            return True
+        else:
             return False
-        return True
+        
+    def set_finish(self, screen_size_x):
+        if self.posx == 0 or self.posx == screen_size_x - self.ray:
+            return True
+        else:
+            return False
 
 class Score:
     def __init__(self, points=int) -> None:

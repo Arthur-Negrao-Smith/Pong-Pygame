@@ -1,4 +1,5 @@
 import pygame as pg
+from random import randint
 from pong_func import *
 
 pg.init()
@@ -54,7 +55,21 @@ while running:
     player_2.draw_player(screen=game_screen.game_window)
 
     ball.draw_ball(screen=game_screen.game_window)
-    
+    start_tester = ball.set_start(screen_size_x=screen_size_x)
+
+    if start_tester:
+        selector = randint(1, 4)
+
+    if selector == 1:
+        ball.move_ball_down_left()
+    elif selector == 2:
+        ball.move_ball_down_right()
+    elif selector == 3:
+        ball.move_ball_up_left()
+    elif selector == 4:
+        ball.move_ball_up_right()
+
+
 
 
     pg.display.flip()
