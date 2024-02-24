@@ -25,14 +25,24 @@ class Game_Event:
                     return False
         return True
     
-    def identify_key_up(self) -> bool:
+    def identify_key_w(self) -> bool:
         self.keys_pressed = pg.key.get_pressed()
-        if self.keys_pressed[pg.K_w] or self.keys_pressed[pg.K_UP]:
+        if self.keys_pressed[pg.K_w]:
             return True
     
+    def identify_key_up(self) -> bool:
+        self.keys_pressed = pg.key.get_pressed()
+        if self.keys_pressed[pg.K_UP]:
+            return True
+    
+    def identify_key_s(self) -> bool:
+        self.keys_pressed = pg.key.get_pressed()
+        if self.keys_pressed[pg.K_s]:
+            return True
+        
     def identify_key_down(self) -> bool:
         self.keys_pressed = pg.key.get_pressed()
-        if self.keys_pressed[pg.K_s] or self.keys_pressed[pg.K_DOWN]:
+        if self.keys_pressed[pg.K_DOWN]:
             return True
 
 class Rect_player:
@@ -150,12 +160,21 @@ class Ball:
             return 'right'
 
 class Score:
-    def __init__(self, points=int) -> None:
+    def __init__(self, points, posx, posy) -> None:
         self.points = points
+        self.posx = posx
+        self.posy = posy
+        self.font = pg.font.SysFont('Monospace', 15, True, True)
+        self.mensage = f'Score: {self.points}'
+        self.text_formatting = self.font.render(self.mensage, True, (255, 255, 255))
         
     def increment_points(self, increment_value) -> None:
         self.points += increment_value
-        
+        self.mensage = f'Score: {self.points}'
+        self.text_formatting = self.font.render(self.mensage, True, (255, 255, 255))
+
     def return_score(self) -> int:
         return self.points
         
+    def draw_score(self, screen) -> None:
+        screen.blit(self.text_formatting, (self.posx, self.posy))
