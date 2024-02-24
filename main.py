@@ -77,7 +77,7 @@ while running:
 
     # Identifica se a bola está sem movimento
     if direction_selector == start:
-        direction_selector = randint(1, 2)
+        direction_selector = randint(1, 4)
 
     # Escolhe para onde a Bola vai se mexer
     ball.move_ball_to_direction(direction=direction_selector)
