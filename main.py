@@ -62,10 +62,9 @@ while running:
     player_2.draw_player(screen=game_screen.game_window)
 
     ball.draw_ball(screen=game_screen.game_window)
-    start_tester = ball.set_start(screen_size_x=screen_size_x, screen_size_y=screen_size_y)
 
 
-    if direction_selector == 0 and start_tester:
+    if direction_selector == 0:
         direction_selector = randint(1, 4)
 
     if direction_selector == up_left:
@@ -76,6 +75,21 @@ while running:
         ball.move_ball_up_right()
     elif direction_selector == down_right:
         ball.move_ball_down_right()
+
+
+    score_tester = ball.set_finish_width(screen_size_x=screen_size_x)
+    if score_tester == 'left':
+        direction_selector = 0
+        ball.posx = screen_size_x // 2
+        ball.posy = screen_size_y // 2
+        pg.time.wait(1000)
+
+    elif score_tester == 'right':
+        direction_selector = 0
+        ball.posx = screen_size_x // 2
+        ball.posy = screen_size_y // 2
+        pg.time.wait(1000)
+    score_tester = ''
 
     height_finish_tester = ball.set_finish_height(screen_size_y=screen_size_y)
     if height_finish_tester == 'up':
@@ -92,7 +106,6 @@ while running:
         elif direction_selector == up_left:
             direction_selector = down_left
     height_finish_tester = ''
-
 
 
 

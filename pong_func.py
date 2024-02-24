@@ -3,7 +3,7 @@ import pygame as pg
 pg.init()
 
 class Window_display:
-    def __init__(self, xproportion, yproportion):
+    def __init__(self, xproportion, yproportion) -> None:
         self.propx = xproportion
         self.propy = yproportion
 
