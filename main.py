@@ -37,6 +37,13 @@ clock = pg.time.Clock()
 # Identificador de eventos
 game_event = Game_Event()
 
+# Seletor de movimentos
+up_left = 1
+down_left = 2
+up_right =  3
+down_right = 4
+direction_selector = 0
+
 running = True
 while running:
 
@@ -55,19 +62,36 @@ while running:
     player_2.draw_player(screen=game_screen.game_window)
 
     ball.draw_ball(screen=game_screen.game_window)
-    start_tester = ball.set_start(screen_size_x=screen_size_x)
+    start_tester = ball.set_start(screen_size_x=screen_size_x, screen_size_y=screen_size_y)
 
-    if start_tester:
-        selector = randint(1, 4)
 
-    if selector == 1:
-        ball.move_ball_down_left()
-    elif selector == 2:
-        ball.move_ball_down_right()
-    elif selector == 3:
+    if direction_selector == 0 and start_tester:
+        direction_selector = randint(1, 4)
+
+    if direction_selector == up_left:
         ball.move_ball_up_left()
-    elif selector == 4:
+    elif direction_selector == down_left:
+        ball.move_ball_down_left()
+    elif direction_selector == up_right:
         ball.move_ball_up_right()
+    elif direction_selector == down_right:
+        ball.move_ball_down_right()
+
+    height_finish_tester = ball.set_finish_height(screen_size_y=screen_size_y)
+    if height_finish_tester == 'up':
+        if direction_selector == down_right:
+            direction_selector = up_right
+
+        elif direction_selector == down_left:
+            direction_selector = up_left
+
+    elif height_finish_tester == 'down':
+        if direction_selector == up_right:
+            direction_selector = down_right
+
+        elif direction_selector == up_left:
+            direction_selector = down_left
+    height_finish_tester = ''
 
 
 

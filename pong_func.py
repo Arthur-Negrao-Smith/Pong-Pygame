@@ -67,36 +67,42 @@ class Ball:
         self.color = color
         self.speed = speed
 
-    def move_ball_up_right(self):
+    def move_ball_up_right(self) -> None:
         self.posx += self.speed
         self.posy -= self.speed
 
-    def move_ball_up_left(self):
+    def move_ball_up_left(self) -> None:
         self.posx -= self.speed
         self.posy -= self.speed
 
-    def move_ball_down_right(self):
+    def move_ball_down_right(self) -> None:
         self.posx += self.speed
         self.posy += self.speed
 
-    def move_ball_down_left(self):
+    def move_ball_down_left(self) -> None:
         self.posx -= self.speed
         self.posy += self.speed
 
-    def draw_ball(self, screen):
+    def draw_ball(self, screen) -> None:
         pg.draw.circle(color=self.color, surface=screen, center=[self.posx, self.posy], radius=self.ray)
         
-    def set_start(self, screen_size_x):
-        if self.posx == screen_size_x//2:
+    def set_start(self, screen_size_x, screen_size_y) -> bool:
+        if self.posx == screen_size_x//2 and screen_size_y//2:
             return True
         else:
             return False
         
-    def set_finish(self, screen_size_x):
-        if self.posx == 0 or self.posx == screen_size_x - self.ray:
-            return True
-        else:
-            return False
+    def set_finish_height(self, screen_size_y) -> str:
+        if self.posy == 0:
+            return 'down'
+        elif self.posy == screen_size_y - self.ray:
+            return 'up'
+
+    def set_finish_width(self, screen_size_x) -> str:
+        if self.posx == 0:
+            return 'left'
+        elif self.posx == screen_size_x - self.ray:
+            return 'right'
 
 class Score:
     def __init__(self, points=int) -> None:
