@@ -102,10 +102,23 @@ class Ball:
         elif self.direction == down_right:
             self.move_ball_down_right()
 
-    def crash_test_player(self, player) -> bool:
-        if self.posx - self.ray == player.return_x_pos() + player.xsize and player.return_y_pos() <= self.posy - self.ray and self.posy - self.ray <= player.return_y_pos() + player.ysize:
-            print('Colidiu')
-            return True
+    def crash_test_player_left(self, player) -> bool:
+        if self.posx - self.ray <= player.return_x_pos() + player.xsize:
+            if player.return_y_pos() <= self.posy - self.ray and self.posy - self.ray <= player.return_y_pos() + player.ysize:
+                print('Colidiu')
+                return True
+            else:
+                return False
+        else:
+            return False
+        
+    def crash_test_player_right(self, player) -> bool:
+        if self.posx + self.ray >= player.return_x_pos():
+            if player.return_y_pos() <= self.posy - self.ray and self.posy - self.ray <= player.return_y_pos() + player.ysize:
+                print('Colidiu')
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -133,7 +146,7 @@ class Ball:
     def set_collision_width(self, screen_size_x) -> str:
         if self.posx == 0:
             return 'left'
-        elif self.posx == screen_size_x - self.ray:
+        elif self.posx == screen_size_x:
             return 'right'
 
 class Score:

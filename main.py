@@ -59,8 +59,10 @@ while running:
     player_1.draw_player(screen=game_screen.game_window)
     if game_event.identify_key_up() and player_1.posy >= 0:
         player_1.move_up()
+        player_2.move_up()
     if game_event.identify_key_down() and player_1.posy <= screen_size_y - player_size_y:
         player_1.move_down()
+        player_2.move_down()
 
     # Desenha o player 2
     player_2.draw_player(screen=game_screen.game_window)
@@ -86,13 +88,21 @@ while running:
         pg.time.wait(1000)
     score_tester = ''
     
-    player_1_collided = ball.crash_test_player(player=player_1)
+    player_1_collided = ball.crash_test_player_left(player=player_1)
     if player_1_collided:
         if direction_selector == down_left:
             direction_selector = down_right
 
         elif direction_selector == up_left:
             direction_selector = up_right
+
+    player_2_collided = ball.crash_test_player_right(player=player_2)
+    if player_2_collided:
+        if direction_selector == down_right:
+            direction_selector = down_left
+
+        elif direction_selector == up_right:
+            direction_selector = up_left
 
 
     if ball.posx - ball.ray == player_1.return_x_pos() + player_1.xsize and player_1.return_y_pos() <= ball.posy and ball.posy <= player_1.return_y_pos() + player_size_y:
